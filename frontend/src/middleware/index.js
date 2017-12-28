@@ -26,10 +26,6 @@ export default apiConfig => store => next => (action) => {
 
   let { endpoint } = callAPI;
 
-  const {
-    types, schema, payload, options,
-  } = callAPI;
-
   if (typeof endpoint === 'function') {
     endpoint = endpoint(store.getState());
   }
@@ -37,6 +33,11 @@ export default apiConfig => store => next => (action) => {
   if (typeof endpoint !== 'string') {
     throw new Error('Specify a string endpoint URL.');
   }
+
+  const {
+    types, schema, payload, options,
+  } = callAPI;
+
   if (!Array.isArray(types) || types.length !== 3) {
     throw new Error('Expected an array of three action types.');
   }
